@@ -22,7 +22,7 @@ const HDWalletProvider = require('truffle-hdwallet-provider');
 // const infuraKey = "fj4jll3k.....";
 //
 // const fs = require('fs');
-const mnemonic = "guard write illness open volume across supply elevator fence file anger screen";
+const mnemonic = "/Users/hank/Desktop/Blockchain/mnemonic.txt";
 
 module.exports = {
   /**
