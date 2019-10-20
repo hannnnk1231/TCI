@@ -1,5 +1,5 @@
-const magic = artifacts.require("Magic");
+const MagicToken = artifacts.require("./MagicToken.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(magic);
+  deployer.deploy(MagicToken);
 };
