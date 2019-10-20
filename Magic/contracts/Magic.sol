@@ -25,11 +25,19 @@ contract Magic {
       	audience[msg.sender].donation+=msg.value;
   	}
 
+  	function getMagician() public view returns(address) {
+		return magician;
+	}
+
   	function getDonation(address _audience) public view returns(uint){
   		return audience[_audience].donation;
   	}
 
-  	function _triggerCooldownAndCharging(uint _type) internal {
+  	function getCooldownTime(uint _type) public view returns(uint32){
+		return audience[msg.sender].cooldown[_type];
+	}
+
+  	function _triggerCooldown(uint _type) internal {
   		audience[msg.sender].cooldown[_type] += uint32(now + cooldownTime);
   	}
 

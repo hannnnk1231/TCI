@@ -1,30 +1,54 @@
-pragma solidity ^0.5.0;
+pragma solidity >=0.4.24 <0.6.0;
 
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
-import "../contracts/Adoption.sol";
+import "../contracts/Magic.sol";
 
-contract TestAdoption {
- 	// The address of the adoption contract to be tested
- 	Adoption adoption = Adoption(DeployedAddresses.Adoption());
-
- 	// The id of the pet that will be used for testing
-	uint expectedPetId = 8;
-
- 	//The expected owner of adopted pet is this contract
- 	address expectedAdopter = address(this);
-
- 	function testUserCanAdoptPet() public {
-  		uint returnedId = adoption.adopt(expectedPetId);
-  		Assert.equal(returnedId, expectedPetId, "Adoption of the expected pet should match what is returned.");
+contract ExposedMagic is Magic {
+	function _testTrigger(uint _type) public {
+		_triggerCooldown(_type);
 	}
-	function testGetAdopterAddressByPetId() public {
-  		address adopter = adoption.adopters(expectedPetId);
-  		Assert.equal(adopter, expectedAdopter, "Owner of the expected pet should be this contract");
+
+	function _testPaymagician(uint _type) public {
+		_payMagician(_type);
 	}
-	function testGetAdopterAddressByPetIdInArray() public {
-  		// Store adopters in memory rather than contract's storage
-  		address[16] memory adopters = adoption.getAdopters();
-  		Assert.equal(adopters[expectedPetId], expectedAdopter, "Owner of the expected pet should be this contract");
+}
+
+contract TestMagic {
+
+	uint expectedType = 2;
+
+	function testMagician() public {
+		Magic magic = new Magic();
+		address expectedMagician = address(this);
+		address returnedMagician = magic.getMagician();
+		Assert.equal(returnedMagician, expectedMagician, "The magician's should be the owner.");
 	}
+
+	function testDonate() public payable{
+		Magic magic = new Magic();
+		magic.donate();
+		uint expectedDonation = magic.getDonation(address(this));
+		Assert.equal(msg.value, expectedDonation, "The donation should equal to msg.value.");
+	}
+
+	function testTrigger() public {
+		ExposedMagic e = new ExposedMagic();
+		e._testTrigger(expectedType);
+		uint returnedCooldownTime = e.getCooldownTime(expectedType);
+		uint expectedCooldownTime = now + 1 days;
+		Assert.equal(returnedCooldownTime, expectedCooldownTime, "The cooldown time should be added 1 day.");
+	}
+
+	/*
+
+	function testPayMagician() public {
+		ExposedMagic e = new ExposedMagic();
+		e._testPaymagician(expectedType);
+		uint expectedCharge = 200;
+		uint returnedMagicianBalance = e.getMagician().balance;
+		Assert.equal(returnedMagicianBalance, expectedCharge, "The magician should earn 200.");
+	}
+	*/
+
 }
