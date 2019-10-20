@@ -4,7 +4,5 @@ import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 import "../contracts/MagicAct.sol";
 
-contract TestMagicAct {
-
-	
+contract TestMagicAct {	
 }
