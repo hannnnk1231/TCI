@@ -25,10 +25,6 @@ contract Magic {
       	audience[msg.sender].donation+=msg.value;
   	}
 
-  	function seeContract_Amount() public view returns(uint){
-        return address(this).balance;
-    }
-
   	function getMagician() public view returns(address) {
 		return magician;
 	}
