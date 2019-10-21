@@ -28,12 +28,13 @@ contract TestMagic {
 		Assert.equal(magic.getMagician(), msg.sender, "The magician should be the owner.");
 	}
 
+	/*
 	function testDonate() public payable{
 		magic.donate.value(200 finney)();
 		uint returnedDonation = magic.getDonation(address(this));
 		Assert.equal(returnedDonation, 200 finney, "The donation should equal to msg.value.");
 	}
-
+	
 	function testTrigger() public {
 		ExposedMagic e = new ExposedMagic();
 		e._testTrigger(expectedType);
@@ -41,4 +42,5 @@ contract TestMagic {
 		uint expectedCooldownTime = now + 1 days;
 		Assert.equal(returnedCooldownTime, expectedCooldownTime, "The cooldown time should be added 1 day.");
 	}
+	*/
 }
