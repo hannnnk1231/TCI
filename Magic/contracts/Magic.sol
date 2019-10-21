@@ -2,7 +2,7 @@ pragma solidity >=0.4.24 <0.6.0;
 
 contract Magic {
 
-	address payable magician;
+	address payable public magician;
 	uint cooldownTime = 1 days;
 
 	struct Audiences {
@@ -12,7 +12,7 @@ contract Magic {
 
 	mapping (address=>Audiences) public audience;
 
-	constructor() public {
+	constructor() payable public {
 		magician = msg.sender;
 	}
 
@@ -21,9 +21,13 @@ contract Magic {
 		_;
 	}
 
-	function donate() public payable {
+	function donate() payable public {
       	audience[msg.sender].donation+=msg.value;
   	}
+
+  	function seeContract_Amount() public view returns(uint){
+        return address(this).balance;
+    }
 
   	function getMagician() public view returns(address) {
 		return magician;
@@ -39,11 +43,5 @@ contract Magic {
 
   	function _triggerCooldown(uint _type) internal {
   		audience[msg.sender].cooldown[_type] += uint32(now + cooldownTime);
-  	}
-
-  	function _payMagician(uint _type) internal {
-  		uint charge=_type*100;
-  		magician.transfer(charge);
-  		audience[msg.sender].donation-=charge;
   	}
 }

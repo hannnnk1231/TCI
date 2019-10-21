@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">60% </span>
+        <span class="strong">87.5% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>6/10</span>
+        <span class='fraction'>7/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">87.5% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>6/8</span>
+        <span class='fraction'>7/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">54.55% </span>
+        <span class="strong">88.89% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>6/11</span>
+        <span class='fraction'>8/9</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -89,9 +89,7 @@
 44
 45
 46
-47
-48
-49</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+47</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -110,40 +108,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">pragma solidity &gt;=0.4.24 &lt;0.6.0;
 &nbsp;
 contract Magic {
 &nbsp;
-	address payable magician;
+	address payable public magician;
 	uint cooldownTime = 1 days;
 &nbsp;
 	struct Audiences {
@@ -153,18 +149,22 @@ contract Magic {
 &nbsp;
 	mapping (address=&gt;Audiences) public audience;
 &nbsp;
-	constructor() public {
+	constructor() payable public {
 		magician = msg.sender;
 	}
 &nbsp;
-<span class="fstat-no" title="function not covered" >	modifier checkEnoughDonation(uint _price) {</span>
-<span class="cstat-no" title="statement not covered" >		require(audience[msg.sender].donation &gt;= _price)</span>;
+	modifier checkEnoughDonation(uint _price) {
+		<span class="missing-if-branch" title="else path not taken" >E</span>require(audience[msg.sender].donation &gt;= _price);
 		_;
 	}
 &nbsp;
-	function donate() public payable {
+	function donate() payable public {
       	audience[msg.sender].donation+=msg.value;
   	}
+&nbsp;
+<span class="fstat-no" title="function not covered" >  	function seeContract_Amount() public view returns(uint</span>){
+<span class="cstat-no" title="statement not covered" >        return address(this).balance;</span>
+    }
 &nbsp;
   	function getMagician() public view returns(address) {
 		return magician;
@@ -181,19 +181,13 @@ contract Magic {
   	function _triggerCooldown(uint _type) internal {
   		audience[msg.sender].cooldown[_type] += uint32(now + cooldownTime);
   	}
-&nbsp;
-<span class="fstat-no" title="function not covered" >  	function _payMagician(uint _type) internal</span> {
-<span class="cstat-no" title="statement not covered" >  		uint charge=_type*100;</span>
-<span class="cstat-no" title="statement not covered" >  		magician.transfer(charge)</span>;
-<span class="cstat-no" title="statement not covered" >  		audience[msg.sender].donation-=charge</span>;
-  	}
 }</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Oct 21 2019 02:51:28 GMT+0800 (GMT+08:00)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Oct 22 2019 04:30:33 GMT+0800 (GMT+08:00)
 </div>
 </div>
 <script src="../prettify.js"></script>
