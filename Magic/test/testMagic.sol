@@ -11,17 +11,24 @@ contract ExposedMagic is Magic {
 }
 
 contract TestMagic {
-
+	Magic magic;
 	uint expectedType = 2;
 	uint public initialBalance = 1 ether;
 
+	function beforeEach() public {
+		magic = new Magic();
+	}
+
 	function testMagician() public {
-		Magic magic = new Magic();
-		Assert.equal(magic.getMagician(), address(this), "The magician's should be the owner.");
+		Assert.equal(magic.getMagician(), address(this), "The magician should be the owner.");
+	}
+
+	function testMagicianUsingDeployedContract() public {
+		magic = Magic(DeployedAddresses.Magic());
+		Assert.equal(magic.getMagician(), msg.sender, "The magician should be the owner.");
 	}
 
 	function testDonate() public payable{
-		Magic magic = new Magic();
 		magic.donate.value(200 finney)();
 		uint returnedDonation = magic.getDonation(address(this));
 		Assert.equal(returnedDonation, 200 finney, "The donation should equal to msg.value.");

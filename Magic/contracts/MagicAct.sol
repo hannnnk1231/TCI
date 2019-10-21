@@ -6,7 +6,7 @@ contract MagicAct is Magic {
 
 	event Act(uint _type);
  
-	// type 0: Card trick, 1:Party show, 2: Stage magic, 3: Illution
+	// type 1: Card trick, 2:Party show, 3: Stage magic, 4: Illution
 	function act(uint _type) public checkEnoughDonation(_type*100) {
 		require(audience[msg.sender].cooldown[_type] <= now);
 		_triggerCooldown(_type);
