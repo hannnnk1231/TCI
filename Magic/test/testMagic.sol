@@ -3,12 +3,13 @@ pragma solidity >=0.4.24 <0.6.0;
 import "truffle/Assert.sol";
 import "truffle/DeployedAddresses.sol";
 import "../contracts/Magic.sol";
-
+/*
 contract ExposedMagic is Magic {
 	function _testTrigger(uint _type) public {
 		_triggerCooldown(_type);
 	}
 }
+*/
 
 contract TestMagic {
 	Magic magic;
