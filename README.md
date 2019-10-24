@@ -15,4 +15,4 @@ sudo npx solidity-coverage
 ```
 
 ### Result
-![inheritance graph](/Magic/test\ coverage.png)
+![inheritance graph](https://github.com/hannnnk1231/TCI/blob/master/Magic/test%20coverage.png)
