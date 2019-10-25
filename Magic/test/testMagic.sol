@@ -21,12 +21,16 @@ contract TestMagic {
 	}
 
 	function testMagician() public {
-		Assert.equal(magic.getMagician(), address(this), "The magician should be the owner.");
+		Assert.equal(magic.magician(), address(this), "The magician should be the owner.");
 	}
 
 	function testMagicianUsingDeployedContract() public {
 		magic = Magic(DeployedAddresses.Magic());
-		Assert.equal(magic.getMagician(), msg.sender, "The magician should be the owner.");
+		Assert.equal(magic.magician(), msg.sender, "The magician should be the owner.");
+	}
+
+	function testCooldownTime() public {
+		Assert.equal(magic.cooldownTime(), 1 days, "The cooldown time should be 1day");
 	}
 
 	/*

@@ -3,7 +3,7 @@ pragma solidity >=0.4.24 <0.6.0;
 contract Magic {
 
 	address payable public magician;
-	uint cooldownTime = 1 days;
+	uint public cooldownTime = 1 days;
 
 	struct Audiences {
 		uint donation;
@@ -29,10 +29,6 @@ contract Magic {
 	function donate() payable public {
       	audience[msg.sender].donation+=msg.value;
   	}
-
-  	function getMagician() public view returns(address) {
-		return magician;
-	}
 
   	function getDonation(address _audience) public view returns(uint){
   		return audience[_audience].donation;
